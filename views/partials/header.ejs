@@ -13,8 +13,28 @@
            <div class="ui container">
                 <div  class="header item"><i class="announcement icon"></i>Open Blog</div>
                    <a href="/" class="item">Home</a>
-                   <a href="/blogs/new" class="item">New Blog</a>
-                    
+                   <a href="/blogs/new" class="item">New Post</a>
+       <div class="right menu">
+    <div class="item">
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+    <%if (!currentUser) {    %>
+    <a class="ui item" href="/register"> 
+      Sign Up
+    </a>
+    <a class="ui item" href="/login">
+      Login
+    </a>
+   <% }else { %>
+    <a class="ui item">Signed in as <%=currentUser.username%></a>
+    <a class="ui item" href="/logout">
+      Logout
+    <%  } %>
+    </a>
+  </div>   
 </div>
           </div>
        </div>
