@@ -22,3 +22,14 @@ i.announcement {
     float: left;
     margin-right: 30px;
 }
+
+.footer{
+    height: 50px;
+    margin-top: 20px;
+    background-color: black;
+}
+.pfooter{
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+}

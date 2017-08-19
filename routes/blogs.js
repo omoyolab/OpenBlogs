@@ -51,6 +51,25 @@ router.post("/", isloggedIn, function (req, res) {
  
 });
 
+// router.post("/", isloggedIn, function (req, res) {
+ 
+//     req.body.blog.body = req.sanitize(req.body.blog.body);
+ 
+//     req.body.blog.author.id = req.user._id;
+//     req.body.blog.author.username = req.user.username;
+ 
+//     Blog.create(req.body.blog, function (err, newBlog) {
+//         if (err) {
+//             res.render("/blogs/new");
+//         } else {
+//             console.log(newBlog);    // check console to see if your new blog object looks good
+//             res.redirect("/blogs");
+//         }
+ 
+//     });
+ 
+// });
+
 // SHOW SINGLE BLOG
 router.get("/:id", function(req, res) {
     Blog.findById(req.params.id).populate("comments").exec(function(err, foundBlog){
