@@ -6,7 +6,7 @@ var blogSchema = new mongoose.Schema({
      image: String,
      body: String,
      created: {type: Date, default: Date.now},
-     authour :{
+     author :{
          id:{
              type:mongoose.Schema.Types.ObjectId,
              ref: "User"

@@ -6,8 +6,9 @@
          <div class="item">
               <img class="ui centered rounded image" src="<%=blog.image%>">
                 <div class="content">
-                    <span><%=blog.created.toDateString() %></span> 
+                    <span><%=blog.created.toDateString() %></span> <span><%=blog.author.username%></span> 
                 </div>
+                <hr>
                   <div class"description">
                        <p><%= blog.body%></p>
                   </div>
@@ -20,20 +21,27 @@
              
     </div>
       
-          <p><a href="/blogs/<%=blog._id%>/comments/new">Add comment</a></p>
+    
+</div>
+<div class="ui main container segment">
+    <button class="ui secondary button"><a href="/blogs/<%=blog._id%>/comments/new">Add comment</a></button>
+    
                  <div>
                      <% blog.comments.forEach(function(comment){ %>
-                         <p><%=comment.author.username%> - <%=comment.text%></p>
+                         <p class="comments"><strong><%=comment.author.username%></strong>  . <%=comment.created.toDateString()%></p>
+                         <p><%=comment.text%></p>
                          <% if (currentUser && comment.author.id.equals(currentUser._id) ) {%>
-                          <a  class="ui inverted orange button" href="/blogs/<%=blog._id%>/comments/<%=comment._id%>/edit">Edit</a>
-                           <form action="/blogs/<%=blog._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
-                               <button class="ui inverted red button">Delete</button>
+                          <a  class="mini ui inverted orange button" href="/blogs/<%=blog._id%>/comments/<%=comment._id%>/edit">Edit</a>
+                           <form id="delete" action="/blogs/<%=blog._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                               <button class="mini ui inverted red button">Delete</button>
                            </form>
+                           <hr>
                            <% } %>
                     <% }) %>
                      
                  </div>
     
-</div>
+    
+    </div>
 
 <% include ../partials/footer %>

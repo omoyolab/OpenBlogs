@@ -22,17 +22,33 @@ router.get("/new",isloggedIn, function(req, res){
 });
 
 // CREATE ROUTE
-router.post("/",isloggedIn, function(req, res){
-    req.body.blog.body = req.sanitize(req.body.blog.body);
-    Blog.create(req.body.blog, function(err,newBlog ){
-        if(err){
-            res.render("blogs/new");
-        }else{
-           res.redirect("/blogs", {}); 
-        }
+// router.post("/",isloggedIn, function(req, res){
+//     req.body.blog.body = req.sanitize(req.body.blog.body);
+//     Blog.create(req.body.blog, function(err,newBlog ){
+//         if(err){
+//             res.render("blogs/new");
+//         }else{
+//           res.redirect("/blogs", {}); 
+//         }
         
-    });
+//     });
     
+// });
+
+router.post("/", isloggedIn, function (req, res) {
+ 
+    req.body.blog.body = req.sanitize(req.body.blog.body);
+    req.body.blog.user = req.user; 
+ 
+    Blog.create(req.body.blog, function (err, newBlog) {
+        if (err) {
+            res.render("/blogs/new");
+        } else {
+            res.redirect("/blogs");
+        }
+ 
+    });
+ 
 });
 
 // SHOW SINGLE BLOG

@@ -9,3 +9,12 @@ i.announcement {
 #delete{
     display: inline;
 }
+.comments {
+    clear: both;
+}
+
+.secondary.button{
+    display: block;
+    float: right;
+
+}
