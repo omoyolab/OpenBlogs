@@ -16,16 +16,16 @@
                  <form id="delete" action="/blogs/<%=blog._id%>?_method=DELETE" method="POST">
                      <button class="ui inverted red button">Delete</button>
                  </form>
+                 <button class="ui secondary button"><a href="/blogs/<%=blog._id%>/comments/new">Add comment</a></button> 
                     
          </div>
-             
+            
     </div>
       
     
 </div>
+
 <div class="ui main container segment">
-    <button class="ui secondary button"><a href="/blogs/<%=blog._id%>/comments/new">Add comment</a></button>
-    
                  <div>
                      <% blog.comments.forEach(function(comment){ %>
                          <p class="comments"><strong><%=comment.author.username%></strong>  . <%=comment.created.toDateString()%></p>

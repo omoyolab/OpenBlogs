@@ -2,7 +2,14 @@
 
 
 <div class="ui main text container">
-        <div class="ui huge header">Blog App</div>
+        <div id="indexh"class="ui huge header">OpenBlog App</div>
+        <div class="ui category search">
+        <div class="ui icon input">
+      <input class="prompt" type="text" placeholder="Search Topics...">
+          <i class="search icon"></i>
+      </div>
+       <div class="results"></div>
+      </div>
             <div class="ui top attached segment">
                 <div class="ui divided items">
                       <% blogs.forEach(function(blog){ %>
