@@ -13,7 +13,9 @@ i.announcement {
     clear: both;
 }
 
-
+p{
+    white-space: pre-wrap;
+}
 
 
 #indexh{
