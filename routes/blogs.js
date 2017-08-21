@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Blog   = require("../models/blog");
+var middleware = require("../middleware");
 
 
 //SHOW ALL BLOGS
@@ -18,32 +19,32 @@ router.get("/", function(req, res){
 
 // NEW ROUTE
 router.get("/new",isloggedIn, function(req, res){
+        console.log(req.user);
         res.render("blogs/new");
 });
 
 // CREATE ROUTE
-// router.post("/",isloggedIn, function(req, res){
-//     req.body.blog.body = req.sanitize(req.body.blog.body);
-//     Blog.create(req.body.blog, function(err,newBlog ){
-//         if(err){
-//             res.render("blogs/new");
-//         }else{
-//           res.redirect("/blogs", {}); 
-//         }
-        
-//     });
-    
-// });
 
 router.post("/", isloggedIn, function (req, res) {
  
     req.body.blog.body = req.sanitize(req.body.blog.body);
-    req.body.blog.user = req.user; 
- 
-    Blog.create(req.body.blog, function (err, newBlog) {
+    
+    var title = req.body.blog.title;
+    var image = req.body.blog.image;
+    var body = req.body.blog.body;
+    var author = {
+        id: req.user._id,
+        username: req.user.username
+    };
+    
+    var newBlog = {title: title, image: image, body: body, author: author};
+    
+    Blog.create(newBlog, function (err, createdBlog) {
         if (err) {
             res.render("/blogs/new");
         } else {
+            // console.log(createdBlog);
+            // console.log("Blog successfully created.");
             res.redirect("/blogs");
         }
  
@@ -51,24 +52,7 @@ router.post("/", isloggedIn, function (req, res) {
  
 });
 
-// router.post("/", isloggedIn, function (req, res) {
- 
-//     req.body.blog.body = req.sanitize(req.body.blog.body);
- 
-//     req.body.blog.author.id = req.user._id;
-//     req.body.blog.author.username = req.user.username;
- 
-//     Blog.create(req.body.blog, function (err, newBlog) {
-//         if (err) {
-//             res.render("/blogs/new");
-//         } else {
-//             console.log(newBlog);    // check console to see if your new blog object looks good
-//             res.redirect("/blogs");
-//         }
- 
-//     });
- 
-// });
+
 
 // SHOW SINGLE BLOG
 router.get("/:id", function(req, res) {
@@ -83,7 +67,7 @@ router.get("/:id", function(req, res) {
 });
 
 //EDIT ROUTE
-router.get("/:id/edit", function(req, res) {
+router.get("/:id/edit",middleware.checkBlogOwnership, function(req, res) {
     Blog.findById(req.params.id,function(err, foundBlog){
         
         if (err){
@@ -97,7 +81,7 @@ router.get("/:id/edit", function(req, res) {
 });
 
 //UPDATE ROUTE
-router.put("/:id", function(req, res){
+router.put("/:id",middleware.checkBlogOwnership, function(req, res){
     req.body.blog.body = req.sanitize(req.body.blog.body);
    Blog.findByIdAndUpdate(req.params.id,req.body.blog,function(err, updatedBlog){
        if(err){
@@ -111,7 +95,7 @@ router.put("/:id", function(req, res){
 });
 
 //DESTROY ROUTE
-router.delete("/:id", function(req, res){
+router.delete("/:id",middleware.checkBlogOwnership, function(req, res){
     Blog.findByIdAndRemove(req.params.id, function(err){
         
         if (err){

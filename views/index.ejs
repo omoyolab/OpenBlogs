@@ -12,7 +12,7 @@
       </div>
             <div class="ui top attached segment">
                 <div class="ui divided items">
-                      <% blogs.forEach(function(blog){ %>
+                      <% blogs.reverse().forEach(function(blog){ %>
                         <div class="item"> 
                            <div class="image">
                                <img src="<%=blog.image%>">
@@ -20,8 +20,8 @@
                          <div class="content">
                              <a class="header" href="/blogs/<%=blog._id%>"><%= blog.title %></a>
                                <div class="meta">
-                                   <span><%=blog.created.toDateString()%></span>
-                                   <span><%=blog.author.username%></span>
+                                   <span><%=blog.created.toDateString()%>,</span>
+                                   <span>Author: <b><%=blog.author.username%></b></span>
                                </div>
                              <div class="description">
                                  <p><%=blog.body.substring(0,160)%>...</p>

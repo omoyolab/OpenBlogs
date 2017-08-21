@@ -7,15 +7,18 @@
               <img class="ui centered rounded image" src="<%=blog.image%>">
                 <div class="content">
                     <span><%=blog.created.toDateString() %></span> 
+                    <p>Created by: <b><%=blog.author.username%></b></p>
                 </div>
                 <hr>
                   <div class"description">
                        <p><%= blog.body%></p>
                   </div>
+                  <% if (currentUser && blog.author.id.equals(currentUser._id) ) {%>
                   <a class="ui inverted orange button" href="/blogs/<%=blog._id%>/edit">Edit</a>
                  <form id="delete" action="/blogs/<%=blog._id%>?_method=DELETE" method="POST">
                      <button class="ui inverted red button">Delete</button>
                  </form>
+                  <% } %>
                  <button class="ui secondary button"><a href="/blogs/<%=blog._id%>/comments/new">Add comment</a></button> 
                     
          </div>

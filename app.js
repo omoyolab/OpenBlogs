@@ -9,7 +9,7 @@ var Blog         = require ("./models/blog");
 var Comment      = require("./models/comment");
 var passport =     require("passport");
 var LocalStrategy = require("passport-local");
-var expresSsesson = require("express-session");
+// var expresSsesson = require("express-session");
 
 
 // ROUTE CONFIG
@@ -45,7 +45,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //CurrentUser config
 app.use(function(req, res, next){
-    res.locals.currentUser= req.user;
+    res.locals.currentUser = req.user;
     next();
 });
 
