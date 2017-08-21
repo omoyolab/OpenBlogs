@@ -18,8 +18,8 @@ var commentRoutes = require("./routes/comments"),
     authRoutes    = require("./routes/index");
 
 // APP CONFIG
-//mongoose.connect("mongodb://localhost/restful_blog_app");
-mongoose.connect("mongodb://omoyola:london123@ds149373.mlab.com:49373/openblog");
+mongoose.connect(process.env.DATABASEURL);
+//mongoose.connect("mongodb://omoyola:london123@ds149373.mlab.com:49373/openblog");
 app.set("view engine","ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -54,6 +54,8 @@ app.use(function(req, res, next){
 app.use(authRoutes);
 app.use("/blogs",blogRoutes);
 app.use("/blogs/:id/comments",commentRoutes);
+
+
 
 
 
